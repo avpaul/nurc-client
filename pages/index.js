@@ -1,239 +1,317 @@
-import React from 'react';
-import Head from 'next/head';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import ArticleCard from '../components/ArticleCard';
 import SearchBox from '../components/searchBox';
-import { Button } from 'antd';
-
+import VideoCard from '../components/videoCard';
+import Footer from '../components/footer';
+import Navbar from '../components/navbar';
+import Board from '../components/board';
+import Head from 'next/head';
 import 'antd/dist/antd.css';
 
-const Home = () => (
-  <>
-    <div>
+const Home = () => {
+  const [floatNav, setFloatNav] = useState(false);
+  const onScrollHandler = event => {
+    if (window.scrollY >= 72) {
+      return setFloatNav(true);
+    }
+    return setFloatNav(false);
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', onScrollHandler, true);
+    return () => window.removeEventListener('scroll', onScrollHandler);
+  }, []);
+
+  return (
+    <>
       <Head>
         <title>Home</title>
       </Head>
+      <div className="app-wrapper">
+        <Navbar float={floatNav} />
+        <div className="all-sections">
+          <section className="main-section">
+            <Board />
+            <SearchBox />
+          </section>
 
-      <header className="header">
-        <div className="header-wrapper">
-          <Link href="/">
-            <a className="logo-text">NURC</a>
-          </Link>
-          <div className="nav-spacer"></div>
-          <Button type="link">Login</Button>
+          <section className="article-images-section">
+            <div className="article__wrapper">
+              <div className="section-header">
+                <h2 className="section-title">Our latest articles</h2>
+                <Link href="/all-articles">
+                  <a className="section-link">View all articles</a>
+                </Link>
+              </div>
+              <ArticleCard
+                article={{
+                  slug: 'to-article-read',
+                  title: 'This is a test article for the new decade here',
+                  coverImage: 'https://i.picsum.photos/id/1010/5184/3456.jpg',
+                  description:
+                    'Miss Rwanda niryo rushanwa rikomeye riri ku ruhembe rw’andi y’ubwiza yose abera mu Rwanda ndetse ni naryo ryohereza umukobwa muri Miss World, irushanwa rifatwa naryo nk’irya mbere mu y’ubwiza ku Isi.'
+                }}
+              />
+            </div>
+            <div className="latest-images__wrapper">
+              <div className="section-header">
+                <h2 className="section-title">Our latest images</h2>
+                <Link href="/all-articles">
+                  <a className="section-link">View all images</a>
+                </Link>
+              </div>
+              <div className="latest-images">
+                <div className="image-wrapper">
+                  <img src="https://picsum.photos/seed/picsum/200/300" />
+                </div>
+                <div className="image-wrapper">
+                  <img src="https://picsum.photos/seed/picsum/200/300" />
+                </div>
+                <div className="image-wrapper">
+                  <img src="https://picsum.photos/seed/picsum/200/300" />
+                </div>
+                <div className="image-wrapper">
+                  <img src="https://picsum.photos/seed/picsum/200/300" />
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section className="articles-section">
+            <div className="article-card">
+              <div className="image-wrapper">
+                <img src="https://i.picsum.photos/id/101/2621/1747.jpg" />
+              </div>
+              <div className="article-content">
+                <Link href="/article">
+                  <a className="article-title">
+                    What does 'Ndi umunyarwanda' mean to you?
+                  </a>
+                </Link>
+                <div className="article-description">
+                  A campaign aimed at healing and unifying Rwandans dubbed, Ndi
+                  Umunyarwanda (loosely translated as “I’m Rwandan”), is
+                  ‘trending’ in the country
+                </div>
+              </div>
+            </div>
+            <div className="article-card">
+              <div className="image-wrapper">
+                <img src="https://i.picsum.photos/id/101/2621/1747.jpg" />
+              </div>
+              <div className="article-content">
+                <Link href="/article">
+                  <a className="article-title">
+                    What does 'Ndi umunyarwanda' mean to you?
+                  </a>
+                </Link>
+                <div className="article-description">
+                  A campaign aimed at healing and unifying Rwandans dubbed, Ndi
+                  Umunyarwanda (loosely translated as “I’m Rwandan”), is
+                  ‘trending’ in the country
+                </div>
+              </div>
+            </div>
+            <div className="article-card">
+              <div className="image-wrapper">
+                <img src="https://i.picsum.photos/id/101/2621/1747.jpg" />
+              </div>
+              <div className="article-content">
+                <Link href="/article">
+                  <a className="article-title">
+                    What does 'Ndi umunyarwanda' mean to you?
+                  </a>
+                </Link>
+                <div className="article-description">
+                  A campaign aimed at healing and unifying Rwandans dubbed, Ndi
+                  Umunyarwanda (loosely translated as “I’m Rwandan”), is
+                  ‘trending’ in the country
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section className="video-section">
+            <div className="section-header">
+              <h2 className="section-title">Latest videos</h2>
+              <Link href="/all-articles">
+                <a className="section-link">View all videos</a>
+              </Link>
+            </div>
+            <div className="latest-videos">
+              <VideoCard
+                data={{
+                  type: 'video/mp4',
+                  src: 'http://techslides.com/demos/sample-videos/small.mp4',
+                  name: 'Inzira yo kwiyunga',
+                  description:
+                    'Uko imiryango yongeye guhuriza hamwe ikaganira, ndetse ikaniteza imbere!'
+                }}
+              />
+              <VideoCard
+                data={{
+                  type: 'video/mp4',
+                  src:
+                    'http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_2160p_60fps_normal.mp4',
+                  name: 'The journey we made!',
+                  description:
+                    "It's not easy to forgive, what do you do when you have to?"
+                }}
+              />
+              <VideoCard
+                data={{
+                  type: 'video/mp4',
+                  src: 'http://techslides.com/demos/sample-videos/small.mp4',
+                  name: 'Inzira yo kwiyunga',
+                  description:
+                    'Uko imiryango yongeye guhuriza hamwe ikaganira, ndetse ikaniteza imbere!'
+                }}
+              />
+              <VideoCard
+                data={{
+                  type: 'video/mp4',
+                  src: 'http://techslides.com/demos/sample-videos/small.mp4',
+                  name: 'Inzira yo kwiyunga',
+                  description:
+                    'Uko imiryango yongeye guhuriza hamwe ikaganira, ndetse ikaniteza imbere!'
+                }}
+              />
+            </div>
+          </section>
         </div>
-      </header>
 
-      <div className="all-sections">
-        <section className="main-section">
-          <SearchBox />
-        </section>
-
-        <section className="article-images-section">
-          <div className="article__wrapper">
-            <h2 className="section-title">Our latest article</h2>
-            <ArticleCard
-              article={{
-                slug: 'to-article-read',
-                title: 'This is a test article for the new decade here',
-                coverImage: 'https://i.picsum.photos/id/1010/5184/3456.jpg',
-                description:
-                  'Miss Rwanda niryo rushanwa rikomeye riri ku ruhembe rw’andi y’ubwiza yose abera mu Rwanda ndetse ni naryo ryohereza umukobwa muri Miss World, irushanwa rifatwa naryo nk’irya mbere mu y’ubwiza ku Isi.'
-              }}
-            />
-          </div>
-          <div className="latest-images__wrapper">
-            <h2 className="section-title">Our latest images</h2>
-            <div className="latest-images">
-              <div className="image-wrapper">
-                <img src="https://picsum.photos/seed/picsum/200/300" />
-              </div>
-              <div className="image-wrapper">
-                <img src="https://picsum.photos/seed/picsum/200/300" />
-              </div>
-              <div className="image-wrapper">
-                <img src="https://picsum.photos/seed/picsum/200/300" />
-              </div>
-              <div className="image-wrapper">
-                <img src="https://picsum.photos/seed/picsum/200/300" />
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="video-section">
-          <h2 className="section-title">Latest videos</h2>
-          <div className="latest-videos">
-            <div className="video-wrapper">
-              <video fit="cover" controls="over">
-                <source
-                  key="video"
-                  type="video/mp4"
-                  src="http://techslides.com/demos/sample-videos/small.mp4"
-                />
-              </video>
-            </div>
-            <div className="video-wrapper">
-              <video fit="cover" controls="over">
-                <source
-                  key="video"
-                  type="video/mp4"
-                  src="http://techslides.com/demos/sample-videos/small.mp4"
-                />
-              </video>
-            </div>
-          </div>
-        </section>
+        <Footer />
       </div>
-
-      <footer>
-        <div className="footer__top-section">
-          <div className="top-section__tagline">For the Rwanda we want!</div>
-          <div className="top-section__values">
-            <div className="value__wrapper">
-              <div className="value__title">Unity</div>
-              <div className="value__description">
-                Where there is unity there is always victory.
-              </div>
-            </div>
-
-            <div className="value__wrapper">
-              <div className="value__title">Work</div>
-              <div className="value__description">
-                People who work together will win, whether it be against complex
-                football defenses, or the problems of modern society.
-              </div>
-            </div>
-
-            <div className="value__wrapper">
-              <div className="value__title">Patriotism</div>
-              <div className="value__description">
-                The highest patriotism is not a blind acceptance of official
-                policy, but a love of one's country deep enough to call her to a
-                higher plain
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="footer__wrapper">
-          <div></div>
-          <div></div>
-        </div>
-      </footer>
-    </div>
-    <style jsx>{`
-      .header {
-        width: 100%;
-        height: 72px;
-         {
-          /* box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), */
+      <style jsx>{`
+        .app-wrapper {
+          position: relative;
         }
-         {
-          /* 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2); */
+        .all-sections {
+          width: 75%;
+          margin: 0 auto;
+          padding: 16px 0;
         }
-      }
+        section {
+          margin: 64px 0;
+        }
+        .section-header {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+        }
+        .section-link {
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 24px;
+          color: #000000;
+        }
+        .section-link:hover {
+          text-decoration: underline;
+        }
+        .article-images-section .section-header {
+          padding-right: 16px;
+        }
 
-      .header-wrapper {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        padding: 16px 96px;
-        background-color: #41b688;
-        background-color: #ffffff;
-        border-bottom-left-radius: 72px;
-        border-bottom-right-radius: 72px;
-      }
-      .nav-spacer {
-        flex-basis: 100%;
-      }
-      .logo-text {
-        font-size: 20px;
-        font-weight: 700;
-        text-decoration: none;
-        color: #ffffff;
-        color: #41b688;
-      }
-      .all-sections {
-        width: 75%;
-        margin: 0 auto;
-        padding: 16px 0;
-      }
-      section {
-        margin: 64px 0;
-      }
-      .main-section {
-        display: flex;
-        justify-content: center;
-      }
+        .main-section {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+          margin-top: 0;
+        }
 
-      .article-images-section {
-        display: flex;
-        flex-direction: row;
-      }
+        .article-images-section {
+          display: flex;
+          flex-direction: row;
+          margin-bottom: 48px;
+        }
 
-      .section-title {
-        font-weight: 400;
-        font-size: 18px;
-        color: #000000;
-      }
-      .article__wrapper {
-        width: calc(100% - 364px);
-      }
-      .latest-images__wrapper {
-        width: 364px;
-      }
+        .section-title {
+          font-weight: 400;
+          font-size: 18px;
+          color: #000000;
+        }
+        .article__wrapper {
+          width: calc(100% - 364px);
+        }
+        .latest-images__wrapper {
+          width: 364px;
+        }
 
-      .latest-images {
-        display: flex;
-        flex-wrap: wrap;
-      }
+        .latest-images {
+          display: flex;
+          flex-wrap: wrap;
+        }
 
-      .latest-images .image-wrapper {
-        width: 158px;
-        height: 158px;
-        padding: 8px;
-        background-color: #ffffff;
-        cursor: pointer;
-      }
-      .latest-images .image-wrapper img {
-        height: 100%;
-        width: 100%;
-      }
+        .latest-images .image-wrapper {
+          width: 180px;
+          height: 158px;
+          padding: 8px;
+          background-color: #ffffff;
+          cursor: pointer;
+        }
+        .latest-images .image-wrapper img {
+          height: 100%;
+          width: 100%;
+        }
 
-      .latest-videos {
-        display: flex;
-        flex-direction: row;
-        gap: 8px;
-      }
-      .latest-videos .video-wrapper {
-        width: 50%;
-      }
-      .latest-videos .video-wrapper:first-of-type {
-        padding-right: 16px;
-      }
-      .latest-videos .video-wrapper:last-of-type {
-        padding-left: 16px;
-      }
-      .video-wrapper video {
-        width: 100%;
-      }
+        .articles-section {
+          margin-top: 0;
+          margin-bottom: 48px;
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          width: 100%;
+        }
 
-       {
-        /*  footer */
-      }
-      .top-section__values {
-        display: flex;
-        flex-direction: row;
-      }
+        .article-card {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          width: 49%;
+          min-height: 256px;
+          margin-bottom: 16px;
+        }
+        .article-card .image-wrapper {
+          width: 250px;
+        }
+        .article-card .image-wrapper img {
+          width: 100%;
+          height: 100%;
+        }
+        .article-card .article-content {
+          width: 350px;
+          padding: 16px;
+          border: 1px solid #d3d3d3;
+          border-left: none;
+          border-top-right-radius: 4px;
+          border-bottom-right-radius: 4px;
+        }
+        .article-card .article-title {
+          display: inline-block;
+          margin-bottom: 12px;
+          font-size: 18px;
+          font-weight: 700;
+          line-height: 24px;
+          color: #000000;
+        }
 
-      .footer__wrapper {
-        display: flex;
-        flex-direction: row;
-      }
-    `}</style>
-  </>
-);
+        .article-card .article-description {
+          font-size: 16px;
+          color: #000000;
+        }
+
+        .latest-videos {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          flex-wrap: wrap;
+        }
+      `}</style>
+    </>
+  );
+};
 
 export default Home;
