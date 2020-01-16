@@ -92,9 +92,9 @@ const Footer = () => {
       </footer>
       <style jsx>{`
         .footer {
-          margin: 0 auto;
+          margin: 0;
           padding: 32px 0 64px;
-          width: 75%;
+          width: 100%;
         }
 
         .footer__top-section {
