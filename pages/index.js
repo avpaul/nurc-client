@@ -1,35 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import ArticleCard from '../components/ArticleCard';
 import SearchBox from '../components/searchBox';
 import VideoCard from '../components/videoCard';
 import Footer from '../components/footer';
-import Navbar from '../components/navbar';
 import Board from '../components/board';
+import AppLayout from '../components/layout';
 import Head from 'next/head';
-import 'antd/dist/antd.css';
 
 const Home = () => {
-  const [floatNav, setFloatNav] = useState(false);
-  const onScrollHandler = event => {
-    if (window.scrollY >= 72) {
-      return setFloatNav(true);
-    }
-    return setFloatNav(false);
-  };
-
-  useEffect(() => {
-    window.addEventListener('scroll', onScrollHandler, true);
-    return () => window.removeEventListener('scroll', onScrollHandler);
-  }, []);
-
   return (
-    <>
+    <AppLayout>
       <Head>
         <title>Home</title>
       </Head>
-      <div className="app-wrapper">
-        <Navbar float={floatNav} />
+      <div>
         <div className="all-sections">
           <section className="main-section">
             <Board />
@@ -84,7 +69,7 @@ const Home = () => {
                 <img src="https://i.picsum.photos/id/101/2621/1747.jpg" />
               </div>
               <div className="article-content">
-                <Link href="/article">
+                <Link href="/articles/article-wert">
                   <a className="article-title">
                     What does 'Ndi umunyarwanda' mean to you?
                   </a>
@@ -101,7 +86,7 @@ const Home = () => {
                 <img src="https://i.picsum.photos/id/101/2621/1747.jpg" />
               </div>
               <div className="article-content">
-                <Link href="/article">
+                <Link href="/articles/articl-ssrkf-esrks">
                   <a className="article-title">
                     What does 'Ndi umunyarwanda' mean to you?
                   </a>
@@ -118,7 +103,7 @@ const Home = () => {
                 <img src="https://i.picsum.photos/id/101/2621/1747.jpg" />
               </div>
               <div className="article-content">
-                <Link href="/article">
+                <Link href="/articles/article-wejfnn-wrefc">
                   <a className="article-title">
                     What does 'Ndi umunyarwanda' mean to you?
                   </a>
@@ -185,11 +170,10 @@ const Home = () => {
       </div>
       <style jsx>{`
         .app-wrapper {
-          position: relative;
         }
         .all-sections {
-          width: 75%;
-          margin: 0 auto;
+          width: 100%;
+          margin: 0;
           padding: 16px 0;
         }
         section {
@@ -310,7 +294,7 @@ const Home = () => {
           flex-wrap: wrap;
         }
       `}</style>
-    </>
+    </AppLayout>
   );
 };
 

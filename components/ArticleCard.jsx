@@ -13,7 +13,7 @@ const ArticleCard = ({ article }) => {
             <img src={article.coverImage} />
           </div>
           <div className="article-info">
-            <Link href={article.slug}>
+            <Link href={`/articles/${article.slug}`}>
               <a className="article-title">{article.title}</a>
             </Link>
             <p className="article-desc">{article.description}</p>
